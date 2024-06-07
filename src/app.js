@@ -18,6 +18,15 @@ let submitBtn = document.querySelector('.submitBtn');
 let seatNumber = document.getElementById('seatNumber');
 // seatNumber.innerText = currentSeatNum;
 
+function checkHousefull(){
+    let housefull = document.querySelector('.housefull');
+    let reserveSeat = renderingLocalSeat();
+    if(reserveSeat.length == seats.length){            
+        housefull.classList.remove('hidden');
+    }
+}
+
+
 bookSeat=(seatNum)=>{
     seatNum = parseInt(seatNum);
     currentSeatNum = seatNum;
@@ -106,11 +115,7 @@ submitBtn.addEventListener('click',()=>{
         renderSeats();
         localStorage.setItem('seats',JSON.stringify(seats));
 
-        let housefull = document.querySelector('.housefull');
-        let reserveSeat = renderingLocalSeat();
-        if(reserveSeat.length == seats.length){
-            housefull.classList.remove('hidden');
-        }
+        checkHousefull();
 
     }
 })
@@ -201,6 +206,7 @@ back.addEventListener('click',()=>{
 renderSeats=()=>{
     seatContainer.innerHTML = '';
         seats.map((seat)=>{
+            checkHousefull();
             let button = document.createElement('button');
             button.classList.add('seat');
             button.innerText=seat.seatNumber;
