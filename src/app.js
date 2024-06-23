@@ -21,9 +21,12 @@ let seatNumber = document.getElementById('seatNumber');
 function checkHousefull(){
     let housefull = document.querySelector('.housefull');
     let reserveSeat = renderingLocalSeat();
-    if(reserveSeat.length == seats.length){            
-        housefull.classList.remove('hidden');
+    if(reserveSeat != null){
+        if(reserveSeat.length == seats.length){            
+            housefull.classList.remove('hidden');
+        }
     }
+    
 }
 
 
@@ -71,9 +74,11 @@ bookSeat=(seatNum)=>{
 
 function renderingLocalSeat(){
     localSeat = JSON.parse(localStorage.getItem('seats'));
-    let reservedSeat = localSeat.filter((seat)=>seat.status == true);
-    localStorage.setItem('reservedSeat',JSON.stringify(reservedSeat));
-    return reservedSeat;
+    if(localSeat != null){
+        let reservedSeat = localSeat.filter((seat)=>seat.status == true);
+        localStorage.setItem('reservedSeat',JSON.stringify(reservedSeat));
+        return reservedSeat;
+    }
 }
 
 
@@ -241,5 +246,3 @@ renderSeats=()=>{
 }
 
 renderSeats();
-
-
